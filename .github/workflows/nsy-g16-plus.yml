@@ -106,7 +106,7 @@ jobs:
         cd $OPENWRT_PATH
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-
+        sed -i 's/RUSTC_VERSION:=.*/RUSTC_VERSION:=1.95.0/' feeds/packages/lang/rust/Makefile
     - name: Generate Variables
       id: variable
       run: |
