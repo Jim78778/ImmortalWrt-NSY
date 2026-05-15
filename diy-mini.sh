@@ -77,9 +77,6 @@ echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.defa
 # 安装 QModem
 ./scripts/feeds install -a -p qmodem
 
-# 强制覆盖驱动（推荐）
-./scripts/feeds install -a -f -p qmodem
-
 # 为固件版本加上编译作者
 author="Gota666"
 sed -i "s/DISTRIB_DESCRIPTION.*/DISTRIB_DESCRIPTION='%D %V %C by ${author}'/g" package/base-files/files/etc/openwrt_release
@@ -119,3 +116,5 @@ sed -i 's/ci-llvm=true/ci-llvm=false/g' feeds/packages/lang/rust/Makefile
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+# 锁定 Rust 版本
+sed -i 's/RUST_DEFAULT_VERSION:=1.90/RUST_DEFAULT_VERSION:=1.89/g' feeds/packages/lang/rust/Makefile
