@@ -68,10 +68,20 @@ rm -rf feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/background/*
 # iStore
 # git_sparse_clone main https://github.com/linkease/istore-ui app-store-ui
 # git_sparse_clone main https://github.com/linkease/istore luci
+# 添加 QModem Feed
+echo 'src-git qmodem https://github.com/FUjr/QModem.git;main' >> feeds.conf.default
 
+# 更新 QModem Feed
+./scripts/feeds update qmodem
+
+# 安装 QModem
+./scripts/feeds install -a -p qmodem
+
+# 强制覆盖驱动（推荐）
+./scripts/feeds install -a -f -p qmodem
 
 # 为固件版本加上编译作者
-author="xiaomeng9597"
+author="Gota666"
 sed -i "s/DISTRIB_DESCRIPTION.*/DISTRIB_DESCRIPTION='%D %V %C by ${author}'/g" package/base-files/files/etc/openwrt_release
 sed -i "s/OPENWRT_RELEASE.*/OPENWRT_RELEASE=\"%D %V %C by ${author}\"/g" package/base-files/files/usr/lib/os-release
 cp -f $GITHUB_WORKSPACE/configfiles/99-default-settings-chinese package/emortal/default-settings/files/99-default-settings-chinese
